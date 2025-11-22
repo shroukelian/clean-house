@@ -1,4 +1,3 @@
-// main.js - دالة Scroll Reveal وقائمة الهامبرغر
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -7,10 +6,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainNav = document.querySelector('.main-nav');
     const navLinks = document.querySelectorAll('.main-nav a'); // جميع الروابط داخل القائمة
 
-    // فتح/إغلاق القائمة عند النقر على الهامبرغر
     menuToggle.addEventListener('click', () => {
         mainNav.classList.toggle('active');
-        // تغيير أيقونة الهامبرغر إلى X عند الفتح
         const icon = menuToggle.querySelector('i');
         if (mainNav.classList.contains('active')) {
             icon.classList.remove('fa-bars');
@@ -21,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // إغلاق القائمة عند النقر على أي رابط (لتسهيل التنقل في الموبايل)
     navLinks.forEach(link => {
         link.addEventListener('click', () => {
             if (mainNav.classList.contains('active')) {
@@ -53,31 +49,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. Observer for Scroll Animation (محدث لتكرار الحركة في كل مرة)
     const elementsToAnimate = document.querySelectorAll(
-        // العناصر الرئيسية
         '#services h2, #services p, #about h2, #about p, #areas h2, #areas p, #contact h2, #contact p, #contact h3, ' +
         
-        // عناصر الأقسام
         '.mission-box, .about-image, .service-card, .contact-form-wrapper, .faq-container, ' +
         
-        // الأزرار والنصوص داخل الـ Hero
         '#hero h1, #hero p, .hero-buttons-wrapper a, ' +
         
-        // القوائم والعناصر الفرعية
         '.feature-list .feature-item, ' + 
         '.contact-info-wrapper h3, .contact-info-item, ' +
         '#areas .container div, #areas .container p:last-of-type'
     );
     
-    // تم حذف observer.unobserve(entry.target); وإضافة شرط else لإعادة الحركة
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                // Element entered view: show it (تفعيل الحركة)
                 entry.target.classList.add('animate-reveal'); 
             } else {
-                // Element left view: hide it (إعادة التعيين استعداداً للحركة التالية)
                 entry.target.classList.remove('animate-reveal');
             }
         });
@@ -86,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     elementsToAnimate.forEach(element => {
-        // إضافة الفئة 'animate-on-scroll' وضمان تفعيل المراقبة
         if (!element.classList.contains('animate-on-scroll')) {
              element.classList.add('animate-on-scroll');
         }
@@ -101,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const header = item.querySelector('.accordion-header');
         
         header.addEventListener('click', () => {
-            // إغلاق كل العناصر المفتوحة أولاً (لفتح عنصر واحد فقط)
             accordionItems.forEach(otherItem => {
                 if (otherItem !== item && otherItem.classList.contains('active')) {
                     otherItem.classList.remove('active');
@@ -109,42 +95,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
 
-            // فتح أو إغلاق العنصر الحالي
             item.classList.toggle('active');
             const content = item.querySelector('.accordion-content');
 
             if (item.classList.contains('active')) {
-                // الفتح: تعيين الارتفاع ليتناسب مع المحتوى
                 content.style.maxHeight = content.scrollHeight + "px";
             } else {
-                // الإغلاق: إعادة الارتفاع إلى صفر
                 content.style.maxHeight = 0;
             }
         });
     });
 });
 
-// 3. Observer for Scroll Animation (محدث لتكرار الحركة في كل مرة)
     const elementsToAnimate = document.querySelectorAll(
-        // العناصر الرئيسية
         '#services h2, #services p, #about h2, #about p, #areas h2, #areas p, #contact h2, #contact p, #contact h3, ' +
         
-        // عناصر الأقسام الجديدة (عزل الخزانات)
         '#tank-insulation h2, #tank-insulation h3, #tank-insulation p, .insulation-image-wrapper, .insulation-text-content a, ' + 
         
-        // عناصر قسم الأسئلة المتكررة (مهم)
         '#faq-section h2, #faq-section p, .faq-container, ' + 
         
-        // عناصر الأقسام
         '.mission-box, .about-image, .service-card, .contact-form-wrapper, ' +
         
-        // الأزرار والنصوص داخل الـ Hero
         '#hero h1, #hero p, .hero-buttons-wrapper a, ' +
         
-        // القوائم والعناصر الفرعية
         '.feature-list .feature-item, ' + 
         '.contact-info-wrapper h3, .contact-info-item, ' +
         '#areas .container div, #areas .container p:last-of-type'
     );
     
-    // ...
