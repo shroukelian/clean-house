@@ -123,3 +123,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// 3. Observer for Scroll Animation (محدث لتكرار الحركة في كل مرة)
+    const elementsToAnimate = document.querySelectorAll(
+        // العناصر الرئيسية
+        '#services h2, #services p, #about h2, #about p, #areas h2, #areas p, #contact h2, #contact p, #contact h3, ' +
+        
+        // عناصر الأقسام الجديدة (عزل الخزانات)
+        '#tank-insulation h2, #tank-insulation h3, #tank-insulation p, .insulation-image-wrapper, .insulation-text-content a, ' + 
+        
+        // عناصر قسم الأسئلة المتكررة (مهم)
+        '#faq-section h2, #faq-section p, .faq-container, ' + 
+        
+        // عناصر الأقسام
+        '.mission-box, .about-image, .service-card, .contact-form-wrapper, ' +
+        
+        // الأزرار والنصوص داخل الـ Hero
+        '#hero h1, #hero p, .hero-buttons-wrapper a, ' +
+        
+        // القوائم والعناصر الفرعية
+        '.feature-list .feature-item, ' + 
+        '.contact-info-wrapper h3, .contact-info-item, ' +
+        '#areas .container div, #areas .container p:last-of-type'
+    );
+    
+    // ...

@@ -30,7 +30,7 @@ main { flex-grow: 1; }
 
 /* Initial state: Hidden and moved down */
 .animate-on-scroll {
-    opacity: 0;
+    /* opacity: 0; */
     transform: translateY(30px); /* يبدأ من 30 بكسل تحت (من أسفل لأعلى) */
     /* استخدام cubic-bezier لتحقيق حركة دخول طبيعية وسلسة */
     transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
@@ -49,6 +49,9 @@ main { flex-grow: 1; }
 .service-card.animate-on-scroll:nth-child(1) { transition-delay: 0.1s; }
 .service-card.animate-on-scroll:nth-child(2) { transition-delay: 0.2s; }
 .service-card.animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
+.service-card.animate-on-scroll:nth-child(4) { transition-delay: 0.4s; } /* جديد */
+.service-card.animate-on-scroll:nth-child(5) { transition-delay: 0.5s; } /* جديد */
+.service-card.animate-on-scroll:nth-child(6) { transition-delay: 0.6s; } /* جديد */
 
 /* Stagger for Feature List (عناصر قائمة من نحن) */
 .feature-list .feature-item.animate-on-scroll:nth-child(1) { transition-delay: 0.1s; }
@@ -432,29 +435,32 @@ footer {
 
 @media (max-width: 992px) {
     /* Header/Nav - Mobile Hamburger Menu */
-    .main-nav { 
-        display: none; 
-        position: absolute;
-        top: 70px; 
-        right: 0;
-        width: 100%;
+     .main-nav { 
+        display: block; /* نجعله مرئياً دائماً للتلاعب بالـ transform */
+        position: fixed; /* تغيير من absolute إلى fixed لتغطية كامل الشاشة */
+        top: 0; 
+        right: -100%; /* يبدأ مخفياً خارج الشاشة من جهة اليمين (RTL) */
+        width: 80%; /* تحديد عرض القائمة الجانبية */
+        max-width: 300px;
+        height: 100vh; /* يغطي كامل ارتفاع الشاشة */
         background-color: var(--clean-white);
-        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        box-shadow: -5px 0 15px rgba(0,0,0,0.2); /* ظل من الجانب */
         z-index: 990;
-        transform: translateY(-100%); 
-        transition: transform 0.3s ease-out;
+        transition: right 0.3s ease-out; /* نغير الترانزيشن إلى خاصية right */
+        overflow-y: auto; /* لإضافة سكرول إذا كانت العناصر كثيرة */
+        padding-top: 20px; /* تباعد من الأعلى */
     }
     .main-nav.active {
-        display: block;
-        transform: translateY(0);
+        right: 0; /* عند التفعيل، ينتقل إلى الموضع صفر ليظهر */
     }
+    
     .main-nav ul { 
         flex-direction: column; 
-        padding: 10px 0;
+        padding: 0; /* إزالة البادنج العلوي */
         gap: 0;
     }
     .main-nav li {
-        text-align: center;
+        text-align: right; /* محاذاة لليمين */
         border-bottom: 1px solid #EEE;
     }
     .main-nav li:last-child {
@@ -464,8 +470,25 @@ footer {
         display: block;
         padding: 15px 20px;
         width: 100%;
+        color: var(--clean-text-dark); /* التأكد من لون النص */
+        font-weight: 600;
+        border-bottom: none !important; /* إزالة أي خط قد يظهر عند الهوفر */
     }
-    .menu-toggle { display: block; } 
+    /* إضافة لمسة احترافية: خلفية عند الفتح لمنع التفاعل مع محتوى الصفحة */
+    .main-nav.active::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.5); /* تغميق الخلفية */
+        z-index: -1; /* وضعه خلف القائمة مباشرة */
+    }
+    
+    .menu-toggle { z-index: 1001; } /* التأكد من بقاء زر الإغلاق فوق كل شيء */
+        .menu-toggle { display: block; } 
+
     .desktop-call-btn { display: none; } 
     .mobile-call-link { display: block; } 
 
@@ -561,3 +584,4 @@ footer {
         font-size: 1.3em;
     }
 }
+
