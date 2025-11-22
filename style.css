@@ -1,0 +1,563 @@
+/* --- Root Variables: Al-Dar Al-Nadheefa (Clean & Modern) --- */
+:root {
+    --clean-primary: #00BCD4;   
+    --clean-secondary: #0097A7;
+    --clean-accent: #FF7043;    
+    --clean-bg-light: #F8F8F8;  
+    --clean-text-dark: #37474F; 
+    --clean-white: #FFFFFF;
+}
+
+/* --- Global Reset & Typography --- */
+body {
+    font-family: 'Cairo', sans-serif;
+    background-color: var(--clean-bg-light);
+    color: var(--clean-text-dark);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+h1, h2, h3 { color: var(--clean-secondary); font-weight: 800; }
+a { color: var(--clean-primary); text-decoration: none; transition: 0.3s; }
+main { flex-grow: 1; } 
+
+/* ================================================= */
+/* --- Scroll Reveal (من تحت لفوق) CSS IMPLEMENTATION --- */
+/* ================================================= */
+
+/* Initial state: Hidden and moved down */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px); /* يبدأ من 30 بكسل تحت (من أسفل لأعلى) */
+    /* استخدام cubic-bezier لتحقيق حركة دخول طبيعية وسلسة */
+    transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Final state: Visible and in place (applied by JS) */
+.animate-on-scroll.animate-reveal {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Staggered Animations for grid/list items (Delay for sequential reveal) */
+
+/* Stagger for Service Cards */
+.service-card.animate-on-scroll:nth-child(1) { transition-delay: 0.1s; }
+.service-card.animate-on-scroll:nth-child(2) { transition-delay: 0.2s; }
+.service-card.animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
+
+/* Stagger for Feature List (عناصر قائمة من نحن) */
+.feature-list .feature-item.animate-on-scroll:nth-child(1) { transition-delay: 0.1s; }
+.feature-list .feature-item.animate-on-scroll:nth-child(2) { transition-delay: 0.2s; }
+.feature-list .feature-item.animate-on-scroll:nth-child(3) { transition-delay: 0.3s; }
+
+/* Stagger for Contact Info Items */
+.contact-info-item.animate-on-scroll:nth-child(2) { transition-delay: 0.1s; }
+.contact-info-item.animate-on-scroll:nth-child(3) { transition-delay: 0.2s; }
+/* ================================================= */
+/* --- End Scroll Reveal CSS --- */
+/* ================================================= */
+
+/* --- Animation Keyframes (Keeping the pulse one) --- */
+@keyframes pulse { /* نبض بسيط وثابت */
+    0% { box-shadow: 0 0 0 0 rgba(255, 112, 67, 0.4); } /* لون أورانج */
+    70% { box-shadow: 0 0 0 10px rgba(255, 112, 67, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 112, 67, 0); }
+}
+@keyframes pulse-primary { /* نبض للزر الأزرق */
+    0% { box-shadow: 0 0 0 0 rgba(0, 188, 212, 0.4); } /* لون أزرق */
+    70% { box-shadow: 0 0 0 10px rgba(0, 188, 212, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(0, 188, 212, 0); }
+}
+
+.menu-toggle {
+    font-size: 1.5em;
+    cursor: pointer;
+    color: var(--clean-secondary);
+    display: none; 
+}
+/* --- Header & Navbar (Fixed and Structured) --- */
+header {
+    background-color: var(--clean-white);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+.header-wrapper { display: flex; justify-content: space-between; align-items: center; }
+.logo-container { display: flex; align-items: center; gap: 10px; }
+.logo-text { font-size: 1.4em; font-weight: 900; color: var(--clean-secondary); }
+.logo-subtext { font-size: 0.8em; color: var(--clean-accent); font-weight: 600; margin-top: -3px; }
+
+/* Navbar Links */
+nav ul { display: flex; list-style: none; gap: 25px; margin: 0; padding: 0; }
+nav a { color: var(--clean-text-dark); font-weight: 600; padding: 5px 0; transition: all 0.3s; }
+nav a:hover { color: var(--clean-primary); border-bottom: 2px solid var(--clean-primary); }
+
+/* Buttons & CTA */
+.btn-primary, .btn-secondary {
+    padding: 10px 25px;
+    border-radius: 50px;
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+.btn-primary { background-color: var(--clean-primary); 
+    color: var(--clean-white); 
+    /* زر اكتشف خدماتنا - نبض أزرق */
+    animation: pulse-primary 2s infinite; }
+.btn-secondary { background-color: var(--clean-accent); 
+    color: var(--clean-white);
+    /* زر الواتساب - نبض برتقالي */
+    animation: pulse 2s infinite;  }
+    
+.btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+.call-btn {
+    background-color: var(--clean-primary); 
+    /* إزالة النبض من زر الاتصال في الهيدر ليكون هادئاً، ونعتمد على زر الواتساب للنبض */
+    animation: none; 
+}
+
+
+/* --- Hero Section (High Animation Focus) --- */
+#hero {
+    width: 100%;
+    min-height: 90vh; /* تأكد من أن الارتفاع كافٍ لتغطية الشاشة */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding-top: 100px;
+    
+    /* === دمج الصورة مع التدرج اللوني (Overlay) === */
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.6) 100%), /* زيادة الظلام قليلاً */
+        url('images/OIP\ \(1\).webp'); 
+        
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    background-color: var(--clean-bg-light); 
+}
+
+main { 
+    margin-top: 0 !important;
+}
+.hero-content h1 {
+    font-size: 3.5em;
+    color: var(--clean-primary);
+}
+.hero-content p {
+    color: var(--clean-white); /* تم تغيير لون النص ليتناسب مع الخلفية الداكنة */
+}
+
+
+
+/* --- About Us Section Styles --- */
+#about {
+    padding: 80px 0;
+    background-color: var(--clean-white); /* خلفية بيضاء نظيفة */
+    border-top: 1px solid #EEE;
+}
+.about-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+.mission-box {
+    padding: 30px;
+    border: 1px solid var(--clean-primary);
+    border-radius: 10px;
+    background-color: var(--clean-bg-light);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.5s;
+    transform: rotateY(0deg);
+}
+.mission-box:hover {
+    transform: rotateY(5deg); /* دوران خفيف عند المرور (تأثير ثلاثي الأبعاد) */
+}
+.about-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+.feature-list {
+    list-style: none;
+    padding-right: 0;
+    margin-top: 20px;
+}
+.feature-list li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: var(--clean-text-dark);
+}
+.feature-list i {
+    color: var(--clean-accent);
+    margin-left: 10px;
+}
+
+/* Mobile Adjustment */
+@media (max-width: 992px) {
+    .about-content-grid {
+        grid-template-columns: 1fr; /* عرض عمودي في الجوال */
+        gap: 30px;
+    }
+}
+/* --- Service Cards (Adding subtle Animation) --- */
+#services { padding: 80px 0; }
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+.service-card {
+    background-color: var(--clean-white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    transition: all 0.4s;
+    border-bottom: 5px solid var(--clean-primary);
+    text-align: center;
+}
+.service-card:hover {
+    transform: scale(1.03) rotate(1deg);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    border-bottom-color: var(--clean-accent);
+}
+.service-card i {
+    font-size: 2.5em;
+    color: var(--clean-primary);
+    margin-bottom: 15px;
+}
+/* --- FAQ/Accordion Section Styles --- */
+#faq-section {
+    padding: 100px 0 80px 0; 
+    background-color: var(--clean-bg-light); 
+}
+.faq-container {
+    max-width: 800px;
+    margin: 40px auto 0 auto;
+}
+.accordion-item {
+    background-color: var(--clean-white);
+    margin-bottom: 15px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s;
+}
+.accordion-item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+.accordion-header {
+    padding: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2em;
+    font-weight: 700;
+    color: var(--clean-text-dark);
+    transition: background-color 0.3s;
+}
+.accordion-header:hover {
+    background-color: var(--clean-bg-light);
+}
+.accordion-header i {
+    color: var(--clean-primary);
+    transition: transform 0.3s;
+    margin-right: 10px; /* تباعد الأيقونة في RTL */
+}
+
+/* حالة الفتح (Active State) */
+.accordion-item.active .accordion-header {
+    background-color: var(--clean-primary);
+    color: var(--clean-white);
+}
+.accordion-item.active .accordion-header i {
+    color: var(--clean-white);
+    transform: rotate(180deg); /* دوران السهم */
+}
+
+/* المحتوى القابل للطي */
+.accordion-content {
+    max-height: 0; /* الإخفاء باستخدام الارتفاع */
+    overflow: hidden;
+    transition: max-height 0.4s ease-out, padding 0.4s;
+    padding: 0 20px;
+}
+.accordion-content p {
+    padding: 10px 0 20px 0;
+    margin: 0;
+    color: var(--clean-text-dark);
+}
+/* --- Contact Us Section Styles --- */
+#contact {
+    padding: 80px 0;
+    background-color: var(--clean-bg-light); 
+}
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* الفورم أكبر من المعلومات */
+    gap: 40px;
+    margin-top: 40px;
+    align-items: flex-start;
+}
+.contact-form-wrapper {
+    background-color: var(--clean-white);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+}
+.contact-form-wrapper input,
+.contact-form-wrapper textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    background-color: var(--clean-bg-light);
+    color: var(--clean-text-dark);
+    font-family: 'Cairo', sans-serif;
+    box-sizing: border-box; /* لضمان أن البادنج لا يزيد من العرض */
+    transition: border-color 0.3s;
+}
+.contact-form-wrapper input:focus,
+.contact-form-wrapper textarea:focus {
+    border-color: var(--clean-primary);
+    outline: none;
+}
+.contact-info-wrapper {
+    padding: 30px 0;
+}
+.contact-info-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    text-align: right;
+    justify-content: flex-end; /* المحاذاة لليمين في RTL */
+}
+.contact-info-item i {
+    font-size: 1.8em;
+    color: var(--clean-accent);
+    margin-left: 15px; /* تباعد عن النص في RTL */
+}
+
+/* --- Footer Styles (Dark Theme) --- */
+footer {
+    background-color: var(--clean-text-dark); /* اللون الداكن للخلفية (#37474F) */
+    color: var(--clean-white);
+    padding: 40px 0 20px 0; /* زيادة البادنج العلوي */
+    margin-top: 50px;
+}
+.footer-grid-layout {
+    display: grid;
+    grid-template-columns: 2fr 1fr 2fr; /* 3 أعمدة: معلومات، روابط، خدمات */
+    gap: 40px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: right;
+}
+.footer-col h3 {
+    color: var(--clean-primary); /* العناوين باللون الأزرق الأساسي */
+    font-weight: 700;
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+.footer-col p, .footer-col ul a {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+.footer-col ul {
+    list-style: none;
+    padding-right: 0;
+}
+.footer-col ul a:hover {
+    color: var(--clean-accent); /* تظليل برتقالي عند المرور */
+}
+.footer-sub-text {
+    text-align: center;
+    padding-top: 20px;
+}
+.footer-sub-text a {
+    color: var(--clean-primary);
+}
+
+/* --- Fixed Contact Buttons (Vertical Stack) --- */
+.fixed-contact-buttons {
+    position: fixed;
+    bottom: 20px;
+    z-index: 999;
+    right: 20px; /* RTL - اليمين */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.contact-float-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: var(--clean-white);
+    font-size: 1.5em;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    transition: transform 0.3s;
+}
+.contact-float-btn:hover {
+    transform: scale(1.1);
+}
+.whatsapp-float { background-color: #25D366; }
+.phone-float { background-color: var(--clean-accent); }
+
+/* ================================================= */
+/* --- Mobile Adjustments (تظبيط شاشات الموبايل) --- */
+/* ================================================= */
+
+@media (max-width: 992px) {
+    /* Header/Nav - Mobile Hamburger Menu */
+    .main-nav { 
+        display: none; 
+        position: absolute;
+        top: 70px; 
+        right: 0;
+        width: 100%;
+        background-color: var(--clean-white);
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        z-index: 990;
+        transform: translateY(-100%); 
+        transition: transform 0.3s ease-out;
+    }
+    .main-nav.active {
+        display: block;
+        transform: translateY(0);
+    }
+    .main-nav ul { 
+        flex-direction: column; 
+        padding: 10px 0;
+        gap: 0;
+    }
+    .main-nav li {
+        text-align: center;
+        border-bottom: 1px solid #EEE;
+    }
+    .main-nav li:last-child {
+        border-bottom: none;
+    }
+    .main-nav a { 
+        display: block;
+        padding: 15px 20px;
+        width: 100%;
+    }
+    .menu-toggle { display: block; } 
+    .desktop-call-btn { display: none; } 
+    .mobile-call-link { display: block; } 
+
+    /* Hero */
+    #hero { 
+        /* التعديل 1: جعل الـ Hero يأخذ كامل ارتفاع الشاشة */
+        min-height: 100vh; 
+        /* التعديل 2: رفع المحتوى للأعلى (كما طلبتِ) */
+        align-items: flex-start;
+        padding-top: 150px;
+    }
+    .hero-content { 
+        text-align: center !important;
+        max-width: 100% !important;
+    }
+    .hero-content h1 { font-size: 2.2em; }
+    .hero-content p { font-size: 1em; color: var(--clean-white) !important; }
+    .hero-buttons-wrapper { 
+        /* تصحيح تلاصق الأزرار */
+       display: flex; 
+        flex-direction: column; 
+        gap: 15px; 
+        align-items: center; /* توسيط الأزرار عمودياً */
+    }
+    .hero-buttons-wrapper a { 
+        margin: 0 !important; 
+        width: 80%; 
+        /* تم تصحيح هذا ليعمل بشكل صحيح في التعديل السابق، لن نغيره */
+        max-width: 300px; 
+        text-align: center;
+    }
+    
+    /* Service Cards - تصغير البطاقات لتتوسطن */
+    .service-card {
+        max-width: 280px; /* تقليل العرض الأقصى للبطاقة */
+       margin: 0 auto; 
+    }
+
+    /* Contact Section: ترتيب الأعمدة في الموبايل */
+    .contact-grid {
+        grid-template-columns: 1fr; 
+    }
+    .contact-info-item {
+        justify-content: flex-start; 
+    }
+    .contact-form-wrapper h3, .contact-info-wrapper h3 {
+        text-align: center !important; 
+    }
+    
+    /* Footer Section: ترتيب الأعمدة في الموبايل */
+    .footer-grid-layout {
+        grid-template-columns: 1fr; 
+        text-align: center;
+    }
+    .footer-col ul {
+        list-style-type: none; 
+        padding-right: 0;
+    }
+    .footer-col ul a {
+        display: block; 
+        padding: 5px 0;
+    }
+    /* Fixed Buttons */
+    .fixed-contact-buttons {
+        bottom: 10px;
+        right: 10px;
+    }
+}
+
+
+@media (max-width: 768px) {
+    /* Footer */
+    .footer-grid-layout {
+        grid-template-columns: 1fr; /* عمود واحد في الجوال */
+        text-align: center;
+    }
+    .footer-col ul {
+        padding-right: 0;
+        text-align: center;
+    }
+    .footer-col ul a {
+        display: block; /* جعل الروابط كتل للتنسيق أفضل */
+        padding: 5px 0;
+    }
+    /* Fixed Buttons */
+    .fixed-contact-buttons {
+        bottom: 10px;
+        right: 10px;
+    }
+    .contact-float-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
+    }
+}
